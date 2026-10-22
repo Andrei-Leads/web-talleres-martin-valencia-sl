@@ -191,6 +191,6 @@ export default defineSiteConfig({
     titulo: "Carpintería de aluminio en València | Talleres Martín",
     descripcion:
       "Ventanas Climalit, persianas, puertas de aluminio, mosquiteras y rejas a medida en València. Reparaciones a domicilio. Desde 1997 en la calle Sagunt.",
-    url: "https://web-talleres-martin-valencia-s-l.vercel.app", // Provisional: corregir con la URL real de Vercel (paso 12)
+    url: "https://web-talleres-martin-valencia-sl.vercel.app",
   },
 });
