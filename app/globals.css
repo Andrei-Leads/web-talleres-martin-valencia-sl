@@ -1,0 +1,87 @@
+@import "tailwindcss";
+@import "@andrei-leads/core/styles.css";
+
+/* Tokens del diseño «Medida» (carpinteria-metalica-1).
+   Solo --color-primario se sobrescribe desde site.config (layout.tsx). */
+@theme {
+  --color-primario: #275d6e; /* marca.colorPrimario */
+  --color-sobre-primario: #ffffff;
+  --color-primario-tinte: color-mix(in oklab, var(--color-primario) 9%, var(--color-papel));
+  --color-papel: #f6f8f9;
+  --color-gris-claro: #eceff2;
+  --color-tarjeta: #ffffff;
+  --color-tinta: #1c232b;
+  --color-tinta-suave: #4a5560;
+  --color-linea: #c9d2d9; /* decorativo */
+  --color-cota: #8a98a5; /* decorativo, nunca texto ni bordes de control */
+  --color-etiqueta-ejemplo: rgb(28 35 43 / 0.86);
+  --color-foco: var(--color-tinta);
+  --color-foco-oscuro: #ffffff;
+
+  --font-sans: var(--font-plex), system-ui, sans-serif;
+
+  --radius-chip: 999px;
+  --radius-boton: 8px;
+  --radius-tarjeta: 6px;
+  --radius-etiqueta: 4px;
+
+  --shadow-asistente: 0 8px 28px rgb(28 35 43 / 0.1); /* la única sombra de contenido */
+  --shadow-barra: 0 -6px 18px rgb(28 35 43 / 0.12);
+
+  --container-contenido: 1160px;
+  --container-lectura: 68ch; /* legales y contenido de servicio */
+}
+
+/* Ancho de contenido: 1160 px de contenido + 20 px de margen lateral. */
+@utility contenedor {
+  max-width: calc(var(--container-contenido) + 40px);
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+@layer base {
+  html {
+    /* Las anclas no quedan tapadas por la cabecera sticky (máx. ~64 px). */
+    scroll-padding-top: 5rem;
+  }
+  /* En móvil, la barra sticky inferior tampoco tapa lo que recibe el foco. */
+  @media (max-width: 47.99rem) {
+    html {
+      scroll-padding-bottom: 5rem;
+    }
+  }
+  body {
+    background-color: var(--color-papel);
+    color: var(--color-tinta);
+    font-size: 17px;
+    line-height: 1.5;
+  }
+  /* Un solo anillo para todo: 2 px, separado 2 px. */
+  :focus-visible {
+    outline: 2px solid var(--color-foco);
+    outline-offset: 2px;
+  }
+  /* Pie y banda CTA (data-tema="oscuro"): el anillo pasa a blanco. */
+  [data-tema="oscuro"] :focus-visible {
+    outline-color: var(--color-foco-oscuro);
+  }
+  /* Títulos que reciben el foco por programa (paso del asistente). */
+  [tabindex="-1"]:focus-visible {
+    outline-offset: 4px;
+  }
+}
+
+/* Sin animaciones ni scroll suave si el usuario lo pide. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
