@@ -30,7 +30,8 @@ const CUADRICULA = {
  * Móvil con foto: foto 5:2 sin texto encima → h1 → descripción → estrellas → asistente.
  *   A 375×667 la primera fila de chips del paso 1 queda por encima de la barra móvil: por eso 5:2
  *   y los espacios ajustados (ver cálculo en el informe de la fase C1).
- * Escritorio con foto: texto + asistente (7/12) | foto 4:5 con marco y cotas FUERA de la foto (5/12).
+ * Escritorio con foto: texto + asistente (7/12) | foto con marco y cotas FUERA de la foto (5/12). La foto
+ *   se estira hasta el final del asistente (sin hueco debajo); mínimo 480 px de alto.
  * Sin foto: fondo gris claro con cuadrícula; texto a la izquierda y asistente a la derecha (lg).
  */
 export function Hero({ sector, descripcionCorta, ciudad, valoracion, imagen, servicios, contacto }: Props) {
@@ -51,18 +52,18 @@ export function Hero({ sector, descripcionCorta, ciudad, valoracion, imagen, ser
         )}
       >
         {imagen && (
-          <div className="flex min-w-0 flex-col gap-2.5 lg:col-start-2 lg:row-span-2 lg:row-start-1">
+          <div className="flex min-w-0 flex-col gap-2.5 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-stretch">
             <div className="hidden lg:block lg:pr-[34px]">
               <Cota etiqueta="a medida" />
             </div>
-            <div className="flex items-start gap-2.5">
+            <div className="flex items-start gap-2.5 lg:flex-1 lg:items-stretch">
               <Foto
                 imagen={imagen}
                 proporcion="5/2"
                 marco="ninguno"
                 priority
                 sizes="(min-width: 1024px) 40vw, 100vw"
-                className="min-w-0 flex-1 lg:aspect-[4/5] lg:border lg:border-tinta-suave"
+                className="min-w-0 flex-1 lg:aspect-auto lg:min-h-[480px] lg:border lg:border-tinta-suave"
               />
               <Cota orientacion="vertical" etiqueta="tu hueco" className="hidden self-stretch lg:flex" />
             </div>
